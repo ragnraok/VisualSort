@@ -91,4 +91,44 @@ class SortAlg(object):
             with this form:
                 cur_array, special_pos(the change pos)
         """
-        pass
+        arr = copy.copy(self.array)
+        print arr
+        path_track = [(arr, 0)]
+        self._quick_sort_iter(arr, path_track, 0, len(arr) - 1)
+        return path_track
+
+    def _quick_sort_iter(self, arr, path_track, lowindex, highindex):
+        """
+        the iteration version of quick sort
+        """
+        pivotindex = 0
+        if lowindex < highindex:
+            pivotindex = self._partion(arr, lowindex, highindex)
+            path_track.append((copy.copy(arr), pivotindex))
+            self._quick_sort_iter(arr, path_track, lowindex, pivotindex - 1)
+            self._quick_sort_iter(arr, path_track, pivotindex + 1, highindex)
+
+    def _partion(self, arr, lowindex, highindex):
+        """
+        the partion method for quick sort
+        """
+        # swap between the lowindex and the middle entry
+        temp = arr[lowindex]
+        arr[lowindex] = arr[(highindex + lowindex) / 2]
+        arr[(lowindex + highindex) / 2] = temp
+
+        pivot = arr[lowindex]
+        lastsmall = lowindex
+
+        for i in xrange(lowindex + 1, highindex + 1):
+            if arr[i] < pivot:
+                lastsmall += 1
+                temp = arr[i]
+                arr[i] = arr[lastsmall]
+                arr[lastsmall] = temp
+
+        temp = arr[lastsmall]
+        arr[lastsmall] = arr[lowindex]
+        arr[lowindex] = temp
+
+        return lastsmall

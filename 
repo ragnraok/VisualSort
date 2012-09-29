@@ -1,0 +1,12 @@
+a = [1, 2, ,3]
+# OUT:   File "<input>", line 1
+# OUT:     a = [1, 2, ,3]
+# OUT:                ^
+# OUT: SyntaxError: invalid syntax
+a = [1, 2, 3]
+a[0:1]
+# OUT: [1]
+a
+# OUT: [1, 2, 3]
+print a
+# OUT: [1, 2, 3]

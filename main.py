@@ -27,8 +27,9 @@ def main(speed=0.1):
     sort_alg = SortAlg(array_size)
     sort_alg.generate_random_array()
     #path_track = sort_alg.bubble_sort()
-    path_track = sort_alg.select_sort()
+    #path_track = sort_alg.select_sort()
     #path_track = sort_alg.insert_sort()
+    path_track = sort_alg.quick_sort()
     print path_track
 
     # some utility variable
