@@ -1,5 +1,5 @@
 import random
-import copy
+import copy 
 
 
 class SortAlg(object):
@@ -92,7 +92,7 @@ class SortAlg(object):
                 cur_array, special_pos(the change pos)
         """
         arr = copy.copy(self.array)
-        print arr
+        #print arr
         path_track = [(arr, 0)]
         self._quick_sort_iter(arr, path_track, 0, len(arr) - 1)
         return path_track
@@ -132,3 +132,90 @@ class SortAlg(object):
         arr[lowindex] = temp
 
         return lastsmall
+
+    def merge_sort(self):
+        """
+        the merge sort, it can't be show in animation
+        return -> the track list of sort algorithm, the element
+            with this form:
+                cur_array, special_pos(the change pos)
+        """
+        arr = copy.copy(self.array)
+        print arr
+        path_track = [(copy.copy(arr), 0)]
+        path_track.append(([], 0))
+        sort_arr = self._merge_sort_iter(arr, path_track)
+        print sort_arr
+        return path_track
+
+    def _merge_sort_iter(self, arr, path_track):
+        mid = int(len(arr) / 2)
+        path_track.append((copy.copy(arr), mid))
+        if len(arr) <= 1:
+            return arr
+        return self._merge(self._merge_sort_iter(arr[:mid], path_track),
+                           self._merge_sort_iter(arr[mid:], path_track))
+
+    def _merge(self, list1, list2):
+        """
+        merge two list in order
+        """
+        final = []
+        while list1 and list2:
+            final.append(list1[0] <= list2[0] and list1.pop(0) or list2.pop(0))
+
+        final_list = final + list1 + list2
+        return final_list
+
+    def merge_sort_2(self):
+        """
+        the second version of merge, it can be show in animation
+        return -> the track list of sort algorithm, the element
+            with this form:
+                cur_array, special_pos(the change pos)
+        """
+        arr = copy.copy(self.array)
+        path_track = [(copy.copy(arr), 0)]
+        self._merge_sort_2(arr, 0, len(arr) - 1, path_track)
+        return path_track
+
+    def _merge_sort_2(self, arr, low, high, path_track):
+        if high - low < 1:
+            return
+        mid = (low + high) // 2
+
+        self._merge_sort_2(arr, low, mid, path_track)
+        self._merge_sort_2(arr, mid + 1, high, path_track)
+
+        first = low
+        middle = mid
+
+        while first <= middle and middle + 1 <= high:
+            if arr[first] >= arr[middle + 1]:
+                #print 'first = ' + str(first) + ', middle + 1 = ' + str(middle + 1)
+                # insert arr[middle + 1] before arr[first]
+                self._insert_before(arr, middle + 1, first)
+                middle += 1
+            path_track.append((copy.copy(arr), middle))
+            first += 1
+
+    def _insert_before(self, arr, from_index, to_index):
+        """
+        insert the element of arr in index from_index in front of the element
+        in index to_index
+        """
+        value = copy.copy(arr[from_index])
+        #print arr
+
+        copy_arr = copy.copy(arr)
+
+        if from_index == to_index:
+            return
+
+        for i in xrange(to_index, from_index):
+            arr[i + 1] = copy_arr[i]
+
+        arr[to_index] = value
+
+        if to_index < from_index:
+            from_index += 1

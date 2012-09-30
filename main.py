@@ -29,7 +29,8 @@ def main(speed=0.1):
     #path_track = sort_alg.bubble_sort()
     #path_track = sort_alg.select_sort()
     #path_track = sort_alg.insert_sort()
-    path_track = sort_alg.quick_sort()
+    #path_track = sort_alg.quick_sort()
+    path_track = sort_alg.merge_sort_2()
     print path_track
 
     # some utility variable
