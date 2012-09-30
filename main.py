@@ -1,10 +1,14 @@
+#! /usr/bin/python
+# -*- coding: utf8 -*-
+
 from gridview import GridView
 from pygame.locals import *
 from sortalg import SortAlg
-
 from sys import exit
 
 import pygame
+import argparse
+import sys
 
 
 width = 765
@@ -17,21 +21,17 @@ grid_line_color = (0, 0, 0)
 cell_color = (50, 50, 255)
 special_cell_color = (255, 50, 50)
 array_size = 41
+sort_alg = SortAlg(array_size)
 
 
-def main(speed=0.1):
+def main(speed=0.1, sort_method=sort_alg.bubble_sort):
     screen = pygame.display.set_mode(resolution, 0, 32)
     clock = pygame.time.Clock()
     grid_view = GridView(screen, width, height, grid_size, grid_line_color)
 
-    sort_alg = SortAlg(array_size)
     sort_alg.generate_random_array()
-    #path_track = sort_alg.bubble_sort()
-    #path_track = sort_alg.select_sort()
-    #path_track = sort_alg.insert_sort()
-    #path_track = sort_alg.quick_sort()
-    path_track = sort_alg.merge_sort_2()
-    print path_track
+    path_track = sort_method()
+    #print path_track
 
     # some utility variable
     index = 0
@@ -60,6 +60,21 @@ def main(speed=0.1):
         pygame.display.update()
 
 
+def parse_arg(arg):
+    parser = argparse.ArgumentParser(description="the visualization of some " +
+                                     "sort algorithms")
+    choice = ["bubble_sort", "select_sort", "insert_sort", "quick_sort",
+              "merge_sort"]
+    parser.add_argument("-a", default=choice[0],  nargs="?", choices=choice,
+                        help="choice the sort algorithms", const=choice[0],
+                        metavar=", ".join(choice))
+
+    name_space = parser.parse_args(arg)
+    alg = None
+    alg = getattr(sort_alg, name_space.a, sort_alg.bubble_sort)
+    main(sort_method=alg)
+
 if __name__ == '__main__':
     pygame.init()
-    main()
+    #main()
+    parse_arg(sys.argv[1:])
