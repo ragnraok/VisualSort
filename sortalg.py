@@ -1,5 +1,5 @@
 import random
-import copy 
+import copy
 
 
 class SortAlg(object):
@@ -133,7 +133,7 @@ class SortAlg(object):
 
         return lastsmall
 
-    def merge_sort(self):
+    def merge_sort_1(self):
         """
         the merge sort, it can't be show in animation
         return -> the track list of sort algorithm, the element
@@ -148,7 +148,7 @@ class SortAlg(object):
         print sort_arr
         return path_track
 
-    def _merge_sort_iter(self, arr, path_track):
+    def _merge_sort_iter_1(self, arr, path_track):
         mid = int(len(arr) / 2)
         path_track.append((copy.copy(arr), mid))
         if len(arr) <= 1:
@@ -167,7 +167,7 @@ class SortAlg(object):
         final_list = final + list1 + list2
         return final_list
 
-    def merge_sort_2(self):
+    def merge_sort(self):
         """
         the second version of merge, it can be show in animation
         return -> the track list of sort algorithm, the element
@@ -176,16 +176,16 @@ class SortAlg(object):
         """
         arr = copy.copy(self.array)
         path_track = [(copy.copy(arr), 0)]
-        self._merge_sort_2(arr, 0, len(arr) - 1, path_track)
+        self._merge_sort(arr, 0, len(arr) - 1, path_track)
         return path_track
 
-    def _merge_sort_2(self, arr, low, high, path_track):
+    def _merge_sort(self, arr, low, high, path_track):
         if high - low < 1:
             return
         mid = (low + high) // 2
 
-        self._merge_sort_2(arr, low, mid, path_track)
-        self._merge_sort_2(arr, mid + 1, high, path_track)
+        self._merge_sort(arr, low, mid, path_track)
+        self._merge_sort(arr, mid + 1, high, path_track)
 
         first = low
         middle = mid

@@ -66,8 +66,8 @@ def parse_arg(arg):
     choice = ["bubble_sort", "select_sort", "insert_sort", "quick_sort",
               "merge_sort"]
     parser.add_argument("-a", default=choice[0],  nargs="?", choices=choice,
-                        help="choice the sort algorithms", const=choice[0],
-                        metavar=", ".join(choice))
+                        help="choice the sort algorithms, default is bubble sort", const=choice[0],
+                        metavar=", ".join(choice) + ", default is bubble sort")
 
     name_space = parser.parse_args(arg)
     alg = None

@@ -14,7 +14,7 @@ insertions sort, quick sort, merge sort
 
 ## Usage
 
-run ``python main.py``
+run ``python main.py``, the default algorithm is bubble sort
 
 ```
 usage: main.py [-h]
