@@ -5,7 +5,7 @@ VisualSort
 ## Introduce
 
 the visualization of some sort algorithms, contains bubble sort, selection sort,
-insertions sort, quick sort, merge sort
+insertions sort, quick sort, merge sort, shell sort
 
 ## Dependence
 
@@ -18,5 +18,5 @@ run ``python main.py``, the default algorithm is bubble sort
 
 ```
 usage: main.py [-h]
-               [-a [bubble_sort, select_sort, insert_sort, quick_sort, merge_sort]]
+               [-a [bubble_sort, select_sort, insert_sort, quick_sort, merge_sort, shell_sort]]
 ```
