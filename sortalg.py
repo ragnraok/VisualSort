@@ -71,16 +71,46 @@ class SortAlg(object):
         """
         arr = copy.copy(self.array)
         sort_track = [(copy.copy(arr), 0)]
-        for unsort_pos in xrange(1, len(arr)):
-            if arr[unsort_pos] < arr[unsort_pos - 1]:
+        #for unsort_pos in xrange(1, len(arr)):
+        #    if arr[unsort_pos] < arr[unsort_pos - 1]:
+        #        pos = unsort_pos
+        #        cur = arr[unsort_pos]
+        #        while pos > 0 and arr[pos - 1] > cur:
+        #            arr[pos] = arr[pos - 1]  # move back the entry
+        #            pos -= 1
+
+        #        arr[pos] = cur
+        #        sort_track.append((copy.copy(arr), pos))
+        self._insert_sort_interval(1, len(arr) - 1, arr, sort_track, 1)
+        return sort_track
+
+    def _insert_sort_interval(self, low, high, arr, sort_track, increment):
+        for unsort_pos in xrange(low, high + 1):
+            if arr[unsort_pos] < arr[unsort_pos - increment]:
                 pos = unsort_pos
                 cur = arr[unsort_pos]
-                while pos > 0 and arr[pos - 1] > cur:
-                    arr[pos] = arr[pos - 1]  # move back the entry
-                    pos -= 1
+                while pos > 0 and arr[pos - increment] > cur:
+                    arr[pos] = arr[pos - increment]  # move back the entry
+                    pos -= increment
 
                 arr[pos] = cur
                 sort_track.append((copy.copy(arr), pos))
+
+    def shell_sort(self):
+        """
+        the shell sort
+        return -> the track list of sort algorithm, the element
+            with this form:
+                cur_array, special_pos(the change pos)
+        """
+        arr = copy.copy(self.array)
+        sort_track = [(copy.copy(arr), 0)]
+
+        increment = len(arr)
+        while increment > 1:
+            increment = increment / 3 + 1
+            for i in xrange(0, increment):
+                self._insert_sort_interval(i, len(arr) - 1, arr, sort_track, increment)
 
         return sort_track
 
